@@ -17,17 +17,30 @@ namespace CodeFights
     using NUnit.Framework;
     using System;
     using System.Collections.Generic;
+    using System.Text;
 
     [TestFixture]
     public class Challenge_1
     {
         public static string AlphabetSolution(string text)
         {
-            /*
-             Returns letter alphabet position
-            */
+            if (text.Length == 0)
+            {
+                return string.Empty;
+            }
+            
+            var result = new StringBuilder();
 
-            return String.Empty;
+            result.Append(char.ToUpper(text[0]) - 64);
+
+            for (var i = 1; i < text.Length; i++)
+            {
+                if (!char.IsLetter(text[i])) continue;
+                result.Append(' ');
+                result.Append(char.ToUpper(text[i]) - 64);
+            }
+
+            return result.ToString();
         }
 
         [Test]

@@ -5,7 +5,7 @@ Long story short: number of times you need to multiply the digits in a given num
 
 num = 10 
 res = 1
-explanation: 1•0 = 0, which is a single digit number
+explanation: 1ï¿½0 = 0, which is a single digit number
 
 num = 963
 res = 3
@@ -15,6 +15,8 @@ Refer to the unit tests to grasp the idea of this task.
 Feel free to add as many unit tests as you want.
 No external dependencies!
 */
+
+using System.Data;
 
 namespace CodeFights
 {
@@ -34,11 +36,21 @@ namespace CodeFights
 
         public static int PersistenceSolution(long n)
         {
-            /*
-             * Returns persistence of a number
-             */
+            var interResult = n;
+            var iterations = 0;
+            while (interResult > 9)
+            {
+                var digitMultiple = 1;
+                foreach (var digit in interResult.ToString())
+                {
+                    digitMultiple *= int.Parse(digit.ToString());
+                }
 
-            return 0;
+                iterations++;
+                interResult = digitMultiple;
+            }
+
+            return iterations;
         }
     }
 }

@@ -33,6 +33,8 @@ Feel free to add as many unit tests as you want.
 No external dependencies!
 */
 
+using System.Linq;
+
 namespace CodeFights
 {
     using NuGet.Frameworks;
@@ -61,10 +63,20 @@ namespace CodeFights
 
         public static ulong[] FibonacciSolution(ulong number)
         {
+            var fib = new List<ulong>() { 0, 1, 1, 2, 3};
+            while (fib.Last() * fib[^2] < number)
+            {
+                var newFib = fib.Last() + fib[^2];
+                fib.Add(newFib);
+            }
             /*
              *  Returns Fibonacci product combination
              */
-            return Array.Empty<ulong>();
+            if (fib.Last() * fib[^2] == number)
+            {
+                return new ulong[] {fib[^2], fib.Last(),  1 };
+            }
+            return new ulong[] {fib[^2], fib.Last(),  0 };
         }
     }
 }

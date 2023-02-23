@@ -24,6 +24,8 @@ No external dependencies!
 P.S.: don't forget to iterate until you have nothing to remove...
 */
 
+using System.Linq;
+
 namespace CodeFights
 {
     using NUnit.Framework;
@@ -58,7 +60,44 @@ namespace CodeFights
              * Returns simplified directions
              */
 
-            return Array.Empty<string>();
+            var oldLength = arr.Length;
+            var resultList = arr;
+            
+            do
+            {
+                oldLength = resultList.Length;
+                resultList = Iterate(resultList);
+            } while (oldLength != resultList.Length && resultList.Length > 1);
+
+
+            return resultList;
+        }
+
+        public static string[] Iterate(string[] arr)
+        {
+            var newArray = new List<string>();
+            for (var i = 1; i <= arr.Length; i++)
+            {
+                if (i == arr.Length)
+                {
+                    newArray.Add(arr[i-1]);
+                    continue;
+                }
+                if (IsPair(arr[i-1], arr[i]) )
+                {
+                    i++;
+                    continue;
+                }
+                newArray.Add(arr[i-1]);
+            }
+
+            return newArray.ToArray();
+        }
+        
+        public static bool IsPair(string a, string b)
+        {
+            return a == "NORTH" && b == "SOUTH" || a == "SOUTH" && b == "NORTH" || a == "WEST" && b == "EAST" ||
+                   a == "EAST" && b == "WEST";
         }
     }
 }
